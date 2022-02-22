@@ -1,0 +1,118 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <!-- <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th> -->
+                <th scope="col">Email</th>
+                <th scope="col">W9 Form</th>
+                <th scope="col">DL Front</th>
+                <th scope="col">I.C.A</th>
+                <th scope="col">Insurance Copy</th>
+                <th scope="col">Authorization Form</th>
+                <th scope="col">Background Check</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.id}}</th>
+                <!-- <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                <td>{{i.email}}</td> -->
+                <td>{{i.user.email}}</td>
+                
+                <td>
+                    {% if i.w9_form == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.w9_form}}" download="w9 form" target="blank"> 
+                        Download
+                    </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if i.driver_licence_front == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.driver_licence_front}}" download="w9 form" target="blank"> 
+                        Download
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                <td>
+                    {% if i.ica_form == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.ica_form}}" download="w9 form" target="blank">
+                        Download
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                <td>
+                    {% if i.reg_insurence == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.reg_insurence}}" download="w9 form" target="blank"> 
+                        Download
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                <td>
+                    {% if i.authorization_form == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.authorization_form}}" download="w9 form" target="blank"> 
+                        Download
+                    </a>
+                    {% endif %}
+                    
+                </td>
+                <td>
+                    {% if i.background_check == null %}
+                    <p><b>No file</b></p>
+                    {% else %}
+                    <a href="{{i.background_check}}" download="w9 form" target="blank"> 
+                        Download
+                    </a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="view_roadhero_documents?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            {% if start_page != last_page %}
+            <li class="page-item"><a class="page-link" href="view_roadhero_documents?pg={{next}}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+.idea
+/venv
+
+*.pyc
+*.log
+
+.vscode
+.env
+.history
+
+/__pycache__
+/hrsenv
+test_fixture.json
+celerybeat.pid
+test1.py

@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">User Status</th>
+                <th scope="col">Doc Verified</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.id}}</th>
+                <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                <td>{{i.email}}</td>
+                <td>{{i.phone}}</td>
+                {% if i.service_status %}
+                <td>Online</td>
+                {% else %}
+                <td>Offline</td>
+                {% endif %}
+                {% if i.doc_verify %}
+                <td>Yes</td>
+                {% else %}
+                <td>Pending</td>
+                {% endif %}
+                <td>
+                    <a href="edit_roadhero?id={{i.id}}&type=edit">
+                        <button class="btn btn-primary">Edit </button>
+                    </a>
+                    <a href="edit_roadhero?id={{i.id}}&type=verify" onclick="return confirm('Are you sure you want to verify this user?');">
+                        <button class="btn btn-success">Verify </button>
+                    </a>
+                    <a href="edit_roadhero?id={{i.id}}&type=delete" onclick="return confirm('Are you sure you want to delete this user?');">
+                        <button class="btn btn-danger">Delete </button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="view_roadhero?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="view_roadhero?pg={{next}}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

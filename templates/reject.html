@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}    
+    <div class="form-group">
+        <label for="request_id">Request Id</label>
+        <input type="text" class="form-control" id="request_id" name="request_id" aria-describedby="emailHelp"
+            placeholder="{{data.id}}" value="{{data.id}}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp"
+            placeholder="{{data.name}}" value="{{data.name}}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="{{data.mobile}}"
+            value="{{data.mobile}}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="service">Service</label>
+        <input type="text" class="form-control" id="service" name="service" value="{{data.service.name}}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="service_note">Service Note</label>
+        <textarea class="form-control" id="service_note" name="service_note" rows="3"
+            value="{{data.service_note}}"> {{data.service_note}} </textarea>
+    </div>
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name="price" aria-describedby="emailHelp"
+            value="{{data.service.id}}">
+    </div>
+
+    <button type="submit" class="btn btn-success">Reject</button>
+</form>
+{% endblock %}

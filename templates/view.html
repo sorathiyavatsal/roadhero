@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .itemsContainer {
+    background:red; 
+    float:left;
+    position:relative
+}
+.itemsContainer:hover .download{display:block}
+.download{
+  position : absolute;
+    display:none;
+    top:20%; 
+    width:40px;
+    margin:0 auto; left:0px;
+    right:0px;
+    z-index:100
+} 
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% if error %}
+<div>
+    <p>{{error}}</p>
+</div>
+{% endif %}
+<div class="container-fluid sidebar_row ">
+    <p><b>Request ID &nbsp; : &nbsp;</b> #{{data.request_id.id}}</p>
+    <p><b>Service &nbsp; : &nbsp;</b> {{data.request_id.service.name}}</p>
+    <p><b>Service Price &nbsp; : &nbsp;</b> {{data.request_id.service.price}}</p>
+    <p><b>Promo Code &nbsp; : &nbsp;</b> {{data.request_id.promo_code}}</p>
+    <p><b>Service Note &nbsp; : &nbsp;</b> {{data.request_id.service_note}}</p>
+    <p><b>Actual Price &nbsp; : &nbsp;</b> {{data.price}}</p>
+    <hr>
+    <p><b>Created At &nbsp; : &nbsp;</b> {{data.request_id.created_at}}</p>
+    <p><b>ETA &nbsp; : &nbsp;</b> {{data.eta}}</p>
+    {% if data.arrived %}
+    <p><b>On Scene &nbsp; : &nbsp;</b> {{data.arrived}}</p>
+    {% endif %}
+    {% if data.arrived %}
+    <p><b>Completed &nbsp; : &nbsp;</b> {{data.completed}}</p>
+    {% endif %}
+    <hr>
+    {% if data.service.id == 4 %}
+    <h4> Delivery Information</h4>
+    <p><b>Delivery From &nbsp; : &nbsp;</b> {{data2.delivery_from}}</p>
+    <p><b>Delivery To &nbsp; : &nbsp;</b> {{data2.delivery_to}}</p>
+    <p><b>Delivery Details &nbsp; : &nbsp;</b> {{data2.details}}</p>
+    {% else %}
+    <h4>Vehicle Information</h4>
+    <p><b>Model &nbsp; : &nbsp;</b> {{data.request_id.vehicle.name}} - {{data.request_id.vehicle.vehicle_company.name}}
+    </p>
+    <p><b>Year &nbsp; : &nbsp;</b> {{data.request_id.vehicle_year.year}}</p>
+    <p><b>Color &nbsp; : &nbsp;</b> {{data.request_id.vehicle_color.name}}</p>
+    {% endif %}
+    <hr>
+    <h4>Contact</h4>
+    <p><b>RoadHero Driver &nbsp; : &nbsp;</b> {{data.vendor_id.first_name}} {{data.vendor.last_name}}</p>
+    <p><b>Mobile &nbsp; : &nbsp;</b>
+        <a href="tel:{{data.vendor_id.phone}}"> {{data.vendor_id.mobile}}</a>
+
+    </p>
+    <p><b>Email &nbsp; : &nbsp;</b> {{data.vendor_id.email}}</p>
+    <hr>
+    <h4>Documents</h4>
+    <p><b>Uploads</b></p>
+    
+    <div class="row">
+        {% for image in images %}
+        <div class="col-md-3">
+            <img alt="{{image.name}}" src="{{image.src}}" width="160px"></br>
+            <a type="button" class="btn btn-warning">View</a>
+            <a type="button" class="btn btn-warning" download="{{image.name}}-{{data.id}}.jpg" href="{{image.src}}" title="{{image.src}}">Download</a>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- <div class="itemsContainer">
+        <div class="image">
+            <a href="{{image.src}}" title="{{image.src}}">
+                <img alt="{{image.name}}" src="{{image.src}}">
+           </a>
+            </div>
+        <div class="download">
+            <a download="{{image.name}}-{{data.id}}.jpg" href="{{image.src}}" title="{{image.src}}">
+                <img src="https://freeiconshop.com/wp-content/uploads/edd/download-flat.png" width="50px"/>
+           </a>
+             </div>
+    </div>
+    &nbsp;&nbsp; -->
+    <hr>
+    <p><b>Signature</b></p>
+    <div class="row">
+        <div class="col-md-6">
+            <img alt="signature-{{data.id}}" src="{{data.signature}}" width="160px"></br>
+            <a type="button" class="btn btn-warning">View</a>
+            <a type="button" class="btn btn-warning" download="{{data.signature}}-{{data.id}}.jpg" href="{{data.signature}}" title="{{data.signature}}">Download</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

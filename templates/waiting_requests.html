@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Service</th>
+                <th scope="col">Service Note</th>
+                <th scope="col">Price</th>
+                <th scope="col">Payment Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.id}}</th>
+                <td>{{i.name}}</td>
+                <td>{{i.mobile}}</td>
+                <td>{{i.service.name}}</td>
+                <td>{{i.service_note}}</td>
+                <td>{{i.price}}</td>
+                <td>{{i.payment_status}}</td>
+                <td>
+                    <a href="accept_request?id={{i.id}}">
+                        <button class="btn btn-success">Accept</button>
+                    </a>
+                    <a href="reject_request?id={{i.id}}">
+                        <button class="btn btn-danger">Reject</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="waiting_requests?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="waiting_requests?pg={{next}}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

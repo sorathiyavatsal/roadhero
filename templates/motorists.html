@@ -1,0 +1,67 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <!-- <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th> -->
+                <th scope="col">Mobile</th>
+                <th scope="col">OTP</th>
+                <th scope="col">Verified</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.id}}</th>
+                <!-- <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                <td>{{i.email}}</td> -->
+                <td>{{i.mobile}}</td>
+                <td>{{i.code}}</td>
+                {% if i.is_active %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+                <td>
+                    <!-- <a href="edit_motorist?id={{i.id}}&type=edit">
+                        <button class="btn btn-primary">Edit </button>
+                    </a> -->
+                    <a href="edit_motorist?id={{i.id}}&type=delete">
+                        <button class="btn btn-danger">Delete </button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="view_motorist?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="view_motorist?pg={{next}}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

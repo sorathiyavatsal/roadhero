@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" class="form-control" id="request_id" name="request_id" hidden value="{{data.id}}">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp"
+          placeholder="{{data.name}}" value="{{data.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input type="text" class="form-control" id="mobile" name="mobile" placeholder="{{data.mobile}}"
+          value="{{data.mobile}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+          placeholder="{{data.email}}" value="{{data.email}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="roadhero">RoadHero</label>
+        <!-- <input type="text" class="form-control" id="vendor" name="vendor" placeholder="{{data.vendor.first_name}}"
+          value="{{data.vendor.id}}"> -->
+        <select class="form-control" id="vendor" name="vendor">
+          {% if data.vendor %}
+          <option value="{{data.vendor.id}}">{{data.vendor.first_name}} {{data.vendor.last_name}}</option>
+          {% else %}
+          <option>Assign RoadHero</option>
+          {% endif %}
+          {% for user in users %}
+          <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="service">Service</label>
+        <input type="text" class="form-control" id="service" name="service" value="{{data.service.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="service_note">Service Note</label>
+        <textarea class="form-control" id="service_note" name="service_note" rows="3"
+          value="{{data.service_note}}"> {{data.service_note}} </textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name="price" aria-describedby="emailHelp"
+          value="{{data.service.id}}">
+      </div>
+      <div class="form-group">
+        <label for="promo_code">Promo Code</label>
+        <input type="text" class="form-control" id="promo_code" name="promo_code" value="{{data.promo_code}}" readonly>
+      </div>
+      {% if data1 %}
+      <div class="form-group">
+        <label for="eta">ETA</label>
+        <input type="time" class="form-control" id="eta" name="eta" value="{{data.eta}}">
+      </div>
+      <div class="form-group">
+        <label for="arrived">On Scene</label>
+        <input type="time" class="form-control" id="arrived" name="arrived" value="{{data.arrived}}">
+      </div>
+      <div class="form-group">
+        <label for="completed">Completed</label>
+        <input type="time" class="form-control" id="completed" name="completed" value="{{data.completed}}">
+      </div>
+      <div class="form-group">
+        <label for="review">Review</label>
+        <input type="text" class="form-control" id="review" name="review" value="{{data.review}}">
+      </div>
+      {% endif %}
+      {% if data.service.id == 4 %}
+      <div class="form-group">
+        <label for="delivery_from">Delivery From</label>
+        <input type="text" class="form-control" id="delivery_from" name="delivery_from" value="{{data2.delivery_from}}"
+          readonly>
+      </div>
+      <div class="form-group">
+        <label for="delivery_to">Delivery To</label>
+        <input type="text" class="form-control" id="delivery_to" name="delivery_to" value="{{data2.delivery_to}}"
+          readonly>
+      </div>
+      <div class="form-group">
+        <label for="details">Delivery Details</label>
+        <input type="text" class="form-control" id="details" name="details" value="{{data2.details}}" readonly>
+      </div>
+      {% else %}
+
+      <div class="form-group">
+        <label for="vehicle_cmp">Vehicle Make</label>
+        <input type="text" class="form-control" id="vehicle_cmp" name="vehicle_cmp" aria-describedby="emailHelp"
+          value="{{data.vehicle.vehicle_company.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="vehicle">Vehicle Model</label>
+        <input type="text" class="form-control" id="vehicle" name="vehicle" aria-describedby="emailHelp"
+          value="{{data.vehicle.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="vehicle_color">Vehicle Color</label>
+        <input type="text" class="form-control" id="vehicle_color" name="vehicle_color" aria-describedby="emailHelp"
+          value="{{data.vehicle_color.name}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="vehicle_year">Vehicle Year</label>
+        <input type="text" class="form-control" id="vehicle_year" name="vehicle_year" aria-describedby="emailHelp"
+          value="{{data.vehicle_year.year}}" readonly>
+      </div>
+      {% endif %}
+      </br>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>

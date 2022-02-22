@@ -1,0 +1,65 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">RoadHero</th>
+                <th scope="col">ETA</th>
+                <th scope="col">On Scene</th>
+                <th scope="col">Completed</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.request_id.id}}</th>
+                <td>{{i.vendor_id.first_name}} {{i.vendor_id.last_name}}</td>
+                <td>{{i.eta}}</td>
+                <td>{{i.arrived}}</td>
+                <td>{{i.complteted}}</td>
+                <td>{{i.request_id.price}}</td>
+                <td>{{i.service_status}}</td>
+                <td>
+                    <a href="view_request?id={{i.request_id.id}}">
+                        <button class="btn btn-primary">View </button>
+                    </a>
+                    </a>
+                    <a href="cancel_request?id={{i.request_id.id}}">
+                        <button class="btn btn-danger">Cancel </button>
+                    </a>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="active_requests?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="active_requests?pg={{next}}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% block head %}
+<style>
+    .header {
+        background: #222;
+        color: #fff;
+        align: center;
+    }
+
+    .sidebar_row {
+        margin-top: 2px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid sidebar_row ">
+    <form method="POST">
+        {% csrf_token %}
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="text" class="form-control" id="year" name="year" placeholder="Enter Vehicle year to Add"
+                    >
+            </div>
+            </br>
+            <button type="submit" class="btn btn-success">Add Year</button>
+    </form>
+    <hr>
+    <table class="table table-hover table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Year</th>
+                <th scope="col" >Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <th scope="row">#{{i.id}}</th>
+                <td>{{i.year}}</td>
+                <td >
+                    <a href="view_vehicle_years?id={{i.id}}&type=delete" >
+                        <button class="btn btn-danger">Delete </button>
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% for page in pages %}
+            <li class="page-item"><a class="page-link" href="view_vehicle_years?pg={{page}}">{{page}}</a></li>
+            {% endfor %}
+            <li class="page-item"><a class="page-link" href="view_vehicle_years?pg={{next}}">Next</a></li>
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}
