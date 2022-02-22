@@ -1,1 +1,1 @@
-web: gunicorn roadhero.wsgi
+web: gunicorn roadhero.wsgi --log-file
