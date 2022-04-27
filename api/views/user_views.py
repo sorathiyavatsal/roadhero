@@ -24,7 +24,7 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 accountSid = config('accountSid')
 authToken = config('authToken')
 SenderMobile = config('SenderMobile')
-stripe_key = config('STRIPE_LIVE_SECRET_KEY')
+stripe_key = config('STRIPE_TEST_SECRET_KEY')
 
 class register_view(views.APIView):
     permission_classes = [permissions.AllowAny]
@@ -108,9 +108,10 @@ class verifyOtpCode(views.APIView):
         data = obJH.verify_otp_code(request, mobile, code)
         return views.Response(data, status=HTTP_200_OK)
 
-class chargePayment(views.APIView):
+class chargePayment(views.APIView): 
     permission_classes = [permissions.AllowAny]
     def post(self, request,  format=None):
+        #return views.Response("hello word")
         obJH = user_services()
         data = obJH.charge_payment(request)
         return views.Response(data, status=HTTP_200_OK)
